@@ -1,39 +1,45 @@
-// src/context/AuthContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setSession(data.session);
+    // Function to check for an existing session
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
     };
 
-    fetchSession();
+    getSession();
 
-    // Subscription to session changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
+    // Listen for changes in authentication state
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
     });
 
+    // Cleanup subscription on unmount
     return () => {
-      subscription.unsubscribe();
+      if (authListener && typeof authListener === 'object' && authListener.unsubscribe) {
+        authListener.unsubscribe(); // Unsubscribe properly
+      }
     };
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Skapa useAuth hook
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-;
+export const useAuth = () => useContext(AuthContext);
+
+
+
+
+
+
+

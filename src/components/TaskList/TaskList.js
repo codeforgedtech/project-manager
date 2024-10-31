@@ -3,7 +3,7 @@ import { supabase } from '../../supabaseClient';
 import TaskForm from './TaskForm';
 import EditTaskForm from './EditTaskForm';
 import Modal from './Modal';
-import { FaEdit, FaTrash, FaClock, FaCheckCircle, FaCog, FaFlag, FaPlus } from 'react-icons/fa'; // Importera ikoner
+import { FaEdit, FaTrash, FaClock, FaCheckCircle, FaCog, FaFlag, FaPlus, FaUser } from 'react-icons/fa'; // Importera ikoner
 import './TaskList.css';
 
 const TaskList = ({ projectId }) => {
@@ -19,7 +19,7 @@ const TaskList = ({ projectId }) => {
       setLoading(true);
       const { data, error } = await supabase
         .from('tasks')
-        .select('*')
+        .select('*, assigned_user:users(user_id, name)') // Fetching assigned user details
         .eq('project_id', projectId);
 
       if (error) {
@@ -56,7 +56,7 @@ const TaskList = ({ projectId }) => {
     const fetchTasks = async () => {
       const { data, error } = await supabase
         .from('tasks')
-        .select('*')
+        .select('*, assigned_user:users(user_id, name)') // Fetching assigned user details
         .eq('project_id', projectId);
 
       if (data) {
@@ -101,9 +101,9 @@ const TaskList = ({ projectId }) => {
     <div className="task-list">
       <h2>Uppgifter</h2>
       <button onClick={() => setIsModalOpen(true)} className="add-task-button">
-  <FaPlus style={{ marginRight: '5px' }} /> {/* Add the icon */}
-  Lägg till uppgift
-</button>
+        <FaPlus style={{ marginRight: '5px' }} /> {/* Add the icon */}
+        Lägg till uppgift
+      </button>
       
       {loading && <p>Laddar uppgifter...</p>}
       {error && <p className="error">{error}</p>}
@@ -124,18 +124,18 @@ const TaskList = ({ projectId }) => {
             </div>
             <p>{task.description}</p>
             <div className="task-details">
-            <FaFlag className="priority-icon" />
-              <span>
-               {task.priority}
-              </span>
+              <FaFlag className="priority-icon" />
+              <span>{task.priority}</span>
               <FaClock className="clock-icon"/>
-              <span>
-               {task.due_date}
-              </span>
+              <span>{task.due_date}</span>
               {renderStatusIcon(task.status)}
-              <span>
-                 {task.status}
-              </span>
+              <span>{task.status}</span>
+              {task.assigned_user && ( // Display assigned user info
+                <div className="assigned-user">
+                  <FaUser style={{ marginRight: '5px' }} />
+                  {task.assigned_user.name}
+                </div>
+              )}
             </div>
           </li>
         ))}
@@ -153,6 +153,7 @@ const TaskList = ({ projectId }) => {
 };
 
 export default TaskList;
+
 
 
 

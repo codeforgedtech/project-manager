@@ -1,0 +1,97 @@
+/* src/components/TaskList.css */
+.task-list {
+    padding: 20px;
+  }
+  
+  .task-list h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .task-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .task-item {
+    flex: 1 1 calc(25.333% - 15px);
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .status-icon {
+    color: #007bff;
+    margin-right: 5px;
+  }
+  
+  .task-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .task-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1.5rem;
+  }
+  
+  .task-actions button:hover {
+    color: #0056b3;
+  }
+  
+  .task-list .error {
+    color: red;
+    font-weight: bold;
+  }
+  .priority-icon {
+    color: #ff9800; /* Välj en färg som passar din design */
+    margin-right: 5px; /* Avstånd till texten */
+  }
+  .clock-icon{
+    color: green; /* Välj en färg som passar din design */
+    margin-right: 5px; /* Avstånd till texten */
+  }
+  .add-task-button {
+    display: flex;
+    align-items: center;
+    background-color: #007bff; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.add-task-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.add-task-button svg {
+    width: 1.2em; /* Icon size */
+    height: 1.2em;
+
+}
+
+  

@@ -1,0 +1,17 @@
+/* Dashboard.css */
+
+.dashboard-container {
+    display: flex; /* Använd flexbox för att ordna elementen i en rad */
+    justify-content: space-between; /* Skapa utrymme mellan elementen */
+    padding: 20px; /* Lägg till lite padding runt container */
+  }
+  
+  .project-form {
+    flex: 1; /* Gör formuläret flexibelt så att det tar upp tillgängligt utrymme */
+    margin-right: 20px; /* Lägg till utrymme mellan formuläret och listan */
+  }
+  
+  .project-list {
+    flex: 2; /* Låt listan ta upp mer utrymme än formuläret */
+  }
+  

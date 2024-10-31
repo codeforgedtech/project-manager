@@ -1,42 +1,36 @@
 // src/App.js
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Dashboard from './pages/Dashboard/Dashboard';
+import ProjectDetails from './pages/ProjectDetails/ProjectDetails';
+import TaskDetails from './pages/TaskDetails/TaskDetails';
+import UserProfile from './pages/UserProfile/UserProfile';
 import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
+
+
 import { AuthProvider, useAuth } from './context/AuthContext';
-
-const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
-const ProjectDetails = lazy(() => import('./pages/ProjectDetails/ProjectDetails'));
-const TaskDetails = lazy(() => import('./pages/TaskDetails/TaskDetails'));
-const UserProfile = lazy(() => import('./pages/UserProfile/UserProfile'));
-const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
-
-const ProtectedRoute = ({ element }) => {
-  const { user } = useAuth();
-  return user ? element : <Navigate to="/" />;
-};
+import ProjectList from './components/ProjectList/Projects';
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <Navbar />
-        <Sidebar />
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/project/:id" element={<ProtectedRoute element={<ProjectDetails />} />} />
-            <Route path="/task/:id" element={<ProtectedRoute element={<TaskDetails />} />} />
-            <Route path="/user-profile" element={<ProtectedRoute element={<UserProfile />} />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+       
+        <Routes>
+        <Route path="/projects" element={<ProjectList />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
+          <Route path="/task/:id" element={<TaskDetails />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );
 };
 
 export default App;
+
 
 
 

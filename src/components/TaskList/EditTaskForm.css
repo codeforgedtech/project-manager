@@ -1,0 +1,77 @@
+/* EditTaskForm.css */
+.edit-task-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-task-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.edit-task-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.edit-task-form input[type="text"],
+.edit-task-form input[type="number"],
+.edit-task-form input[type="date"],
+.edit-task-form textarea,
+.edit-task-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.edit-task-form input[type="text"]:focus,
+.edit-task-form input[type="number"]:focus,
+.edit-task-form input[type="date"]:focus,
+.edit-task-form textarea:focus,
+.edit-task-form select:focus {
+    border-color: #007bff; /* Change to your desired focus color */
+    outline: none;
+}
+
+.edit-task-form button {
+    padding: 10px;
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-task-form button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.edit-task-form button[type="button"] {
+    background-color: #6c757d; /* Secondary button color */
+}
+
+.edit-task-form button[type="button"]:hover {
+    background-color: #5a6268; /* Darker shade on hover */
+}
+
+.edit-task-form .error {
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}

@@ -1,10 +1,17 @@
 import React from 'react';
+import ProjectForm from '../../components/ProjectForm';
+import ProjectList from '../ProjectList';
+import './Dashboard.css'; // Glöm inte att importera CSS-filen
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the project management dashboard.</p>
+    <div className="dashboard-container">
+      <div className="project-form">
+        <ProjectForm />
+      </div>
+      <div className="project-list">
+        <ProjectList />
+      </div>
     </div>
   );
 };

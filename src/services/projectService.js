@@ -1,12 +1,15 @@
-import axios from 'axios';
+import { supabase } from '../supabaseClient';
 
-const API_URL = process.env.REACT_APP_API_URL;
+// Hämta alla projekt
+export const fetchProjects = async () => {
+  const { data, error } = await supabase.from('Projects').select('*');
+  return { data, error };
+};
 
-export const getProjects = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/projects`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-  }
+// Skapa nytt projekt
+export const createProject = async (title, description, start_date, end_date) => {
+  const { data, error } = await supabase
+    .from('Projects')
+    .insert([{ title, description, start_date, end_date }]);
+  return { data, error };
 };

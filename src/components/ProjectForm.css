@@ -1,0 +1,74 @@
+/* Grundläggande layout för formuläret */
+form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Etiketter och inmatningsfält */
+  form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  form input[type="text"],
+  form input[type="date"],
+  form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Fokus- och hovringsstilar */
+  form input[type="text"]:focus,
+  form input[type="date"]:focus,
+  form textarea:focus {
+    border-color: #4aa3ff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 163, 255, 0.3);
+  }
+  
+  form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  /* Skapa projekt-knapp */
+  form button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #4aa3ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: #3a93dd;
+  }
+  
+  /* Media queries för responsiv design */
+  @media (max-width: 600px) {
+    form {
+      padding: 1.5rem;
+    }
+  
+    form button[type="submit"] {
+      padding: 1rem;
+    }
+  }

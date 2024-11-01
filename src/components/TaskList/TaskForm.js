@@ -2,22 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import './TaskForm.css';
 
-const TaskForm = ({ projectId }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('Pending');
-  const [priority, setPriority] = useState(1);
-  const [dueDate, setDueDate] = useState('');
-  const [assignedUserId, setAssignedUserId] = useState('');
+const TaskForm = ({ projectId, onTaskCreated, task }) => {
+  const [title, setTitle] = useState(task ? task.title : '');
+  const [description, setDescription] = useState(task ? task.description : '');
+  const [status, setStatus] = useState(task ? task.status : '');
+  const [priority, setPriority] = useState(task ? task.priority : 1);
+  const [dueDate, setDueDate] = useState(task ? task.due_date : '');
+  const [assignedUserId, setAssignedUserId] = useState(task ? task.assigned_user_id : '');
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Fetch users from the Users table
+    // Fetch users when the component mounts
     const fetchUsers = async () => {
-      const { data, error } = await supabase
-        .from('users')
-        .select('user_id, name');
-
+      const { data, error } = await supabase.from('users').select('user_id, name');
       if (error) {
         console.error('Error fetching users:', error);
       } else {
@@ -31,41 +28,53 @@ const TaskForm = ({ projectId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Assigned User ID:", assignedUserId); // Debug log
-    console.log("Parsed Assigned User ID:", parseInt(assignedUserId)); // Check if it converts properly
+    const taskData = {
+      title,
+      description,
+      status,
+      priority,
+      due_date: dueDate,
+      project_id: projectId,
+      assigned_user_id: parseInt(assignedUserId),
+    };
 
-    const { data, error } = await supabase
-      .from('tasks')
-      .insert([
-        {
-          title,
-          description,
-          status,
-          priority,
-          due_date: dueDate,
-          project_id: projectId,
-          assigned_user_id: parseInt(assignedUserId), // Convert to integer
-        },
-      ]);
-
-    if (error) {
-      console.error('Error creating task:', error);
+    if (task) {
+      // Editing existing task
+      const { error } = await supabase
+        .from('tasks')
+        .update(taskData)
+        .eq('task_id', task.task_id);
+      if (error) {
+        console.error('Error updating task:', error);
+      } else {
+        console.log('Task updated successfully');
+        onTaskCreated(taskData); // Callback to refresh the task list
+      }
     } else {
-      console.log('Task created successfully:', data);
+      // Creating a new task
+      const { error } = await supabase.from('tasks').insert([taskData]);
+      if (error) {
+        console.error('Error creating task:', error);
+      } else {
+        console.log('Task created successfully');
+        onTaskCreated(taskData); // Callback to refresh the task list
+      }
     }
 
-    // Reset the form
-    setTitle('');
-    setDescription('');
-    setStatus('Pending');
-    setPriority(1);
-    setDueDate('');
-    setAssignedUserId('');
+    // Reset form fields if in create mode
+    if (!task) {
+      setTitle('');
+      setDescription('');
+      setStatus('');
+      setPriority(1);
+      setDueDate('');
+      setAssignedUserId('');
+    }
   };
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
-      <h2>Skapa ny uppgift</h2>
+      <h2>{task ? 'Ändra uppgift' : 'Skapa ny uppgift'}</h2>
       
       <label>
         Titel:
@@ -87,10 +96,10 @@ const TaskForm = ({ projectId }) => {
 
       <label>
         Status:
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
+        <select value={status} onChange={(e) => setStatus(e.target.value)} required>
+          <option value="">Välj status</option>
+          <option value="In Progress">Pågående</option>
+          <option value="Completed">Klar</option>
         </select>
       </label>
 
@@ -99,7 +108,10 @@ const TaskForm = ({ projectId }) => {
         <input
           type="number"
           value={priority}
+          min="1"
+          max="5"
           onChange={(e) => setPriority(e.target.value)}
+          required
         />
       </label>
 
@@ -113,27 +125,29 @@ const TaskForm = ({ projectId }) => {
       </label>
 
       <label>
-  Tilldelad användare:
-  <select
-    value={assignedUserId}
-    onChange={(e) => setAssignedUserId(e.target.value)}
-    required
-  >
-    <option value="">Välj en användare</option>
-    {users.map((user) => (
-      <option key={user.id} value={user.id}>  {/* Use user.id here */}
-        {user.name}
-      </option>
-    ))}
-  </select>
-</label>
+        Tilldelad användare:
+        <select
+          value={assignedUserId}
+          onChange={(e) => setAssignedUserId(e.target.value)}
+          required
+        >
+          <option value="">Välj en användare</option>
+          {users.map((user) => (
+            <option key={user.user_id} value={user.user_id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </label>
 
-      <button type="submit">Skapa uppgift</button>
+      <button type="submit">{task ? 'Uppdatera uppgift' : 'Skapa uppgift'}</button>
     </form>
   );
 };
 
 export default TaskForm;
+
+
 
 
 

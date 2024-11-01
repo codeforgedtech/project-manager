@@ -1,0 +1,132 @@
+.project-list {
+    width: 80%;  /* Gör komponenten större */
+    max-width: 1200px;  /* Begränsa maximal bredd för större skärmar */
+    margin: 0 auto;  /* Centrera på sidan */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .project-list h2 {
+    margin-bottom: 10px;
+  }
+  
+  .add-project-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  
+
+  .project-item h3 {
+    flex: 2;
+    margin: 0;
+  }
+  
+  .date-container {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-buttons button {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .edit-button {
+    background-color: #FF9800;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #F44336;
+    color: white;
+  }
+  
+  .details-button {
+    background-color: #2196F3;
+    color: white;
+  }
+  .project-item {
+    margin-bottom: 20px; /* Add space between projects */
+    padding: 10px; /* Add padding for project item */
+    border: 1px solid #ccc; /* Optional border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background for projects */
+  }
+  
+  .task-list-container {
+    margin-top: 5px; /* Space above the task list */
+    padding: 10px; /* Padding for the task list */
+    background-color: #eef; /* Slightly different background for tasks */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  .task-list {
+    list-style-type: none;/* Bullet points for tasks */
+    margin-left: 20px; /* Indent tasks */
+  
+}
+  
+  .task-list li {
+    margin-bottom: 5px; /* Space between tasks */
+   
+}
+
+.task-list p {
+    margin-bottom: 5px; /* Space between tasks */
+  color:black
+}
+/* Priority color classes for task list items */
+.priority {
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  
+  /* Color-coded priority levels */
+  .priority-1 {
+    background-color: #4CAF50; /* Green for low urgency */
+    color: white;
+  }
+  
+  .priority-2 {
+    background-color: #8BC34A; /* Light green */
+    color: white;
+  }
+  
+  .priority-3 {
+    background-color: #FFEB3B; /* Yellow for medium urgency */
+    color: #333;
+  }
+  
+  .priority-4 {
+    background-color: #FF9800; /* Orange */
+    color: white;
+  }
+  
+  .priority-5 {
+    background-color: #F44336; /* Red for high urgency */
+    color: white;
+  }
+    
+  

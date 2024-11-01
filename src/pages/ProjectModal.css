@@ -21,4 +21,19 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
   }
+   h1 {
+    font-size: 1.8rem; /* Större rubrik */
+    margin-bottom: 1rem; /* Utrymme under rubriken */
+    color: #2c3e50; /* Färg för rubrik */
+  }
+  
+  p {
+    font-size: 1rem; /* Standardstorlek för paragraftext */
+    line-height: 1.5; /* Radavstånd för bättre läsbarhet */
+    margin: 0.5rem 0; /* Utrymme ovanför och nedanför varje paragraf */
+  }
+  
+  strong {
+    color: #2980b9; /* Färg för fetstil */
+  }
   
